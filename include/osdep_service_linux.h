@@ -12,6 +12,15 @@
  * more details.
  *
  *****************************************************************************/
+#include <linux/timer.h>
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6, 6, 0))
+#define del_timer_sync(_timer) timer_shutdown_sync(_timer)
+#define del_timer(_timer) timer_shutdown(_timer)
+#endif
+#ifndef from_timer
+#define from_timer(var, callback_timer, timer_field) \
+    container_of(callback_timer, typeof(*var), timer_field)
+#endif
 #ifndef __OSDEP_LINUX_SERVICE_H_
 #define __OSDEP_LINUX_SERVICE_H_
 

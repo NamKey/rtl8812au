@@ -1,3 +1,6 @@
+ccflags-y += -I$(src)/include -I$(src)/hal -I$(src)/hal/phydm -I$(src)/hal/phydm/halrf -DDM_ODM_SUPPORT_TYPE=ODM_CE
+ccflags-y += -I$(src)/include -I$(src)/hal/phydm -I$(src)/hal/phydm/halrf -DDM_ODM_SUPPORT_TYPE=ODM_CE
+ccflags-y += -I$(src)/include
 EXTRA_CFLAGS += $(USER_EXTRA_CFLAGS) -fno-pie
 EXTRA_CFLAGS += -O3
 EXTRA_CFLAGS += -Wno-unused-variable
@@ -19,8 +22,10 @@ EXTRA_CFLAGS += -Wno-unknown-pragmas
 EXTRA_CFLAGS += -Wno-address
 EXTRA_CFLAGS += -Wno-vla -g
 
-EXTRA_CFLAGS += -I$(src)/include -I$(srctree)/$(src)/include
+#EXTRA_CFLAGS += -I$(src)/include -I$(srctree)/$(src)/include
 EXTRA_CFLAGS += -I$(src)/hal/phydm -I$(srctree)/$(src)/hal/phydm
+EXTRA_CFLAGS += -I$(src)/include
+EXTRA_CFLAGS += -I$(srctree)/$(src)/include
 EXTRA_LDFLAGS += --strip-all -O3
 
 ########################## WIFI IC ############################
@@ -1703,6 +1708,7 @@ ifeq ($(CONFIG_SDIO_HCI), y)
 rtk_core += core/rtw_sdio.o
 endif
 
+ccflags-y += $(EXTRA_CFLAGS)
 $(MODULE_NAME)-y += $(rtk_core)
 
 $(MODULE_NAME)-$(CONFIG_INTEL_WIDI) += core/rtw_intel_widi.o

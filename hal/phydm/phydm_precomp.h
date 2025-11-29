@@ -55,7 +55,7 @@
 
 #elif (DM_ODM_SUPPORT_TYPE == ODM_CE)
 	#ifdef DM_ODM_CE_MAC80211
-		#include "../wifi.h"
+		#include "wifi.h"
 		#include "rtl_phydm.h"
 	#elif defined(DM_ODM_CE_MAC80211_V2)
 		#include "../main.h"
